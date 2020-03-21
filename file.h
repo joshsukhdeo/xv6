@@ -1,3 +1,6 @@
+
+#include "date.h"
+
 struct file {
   enum { FD_NONE, FD_PIPE, FD_INODE } type;
   int ref; // reference count
@@ -22,6 +25,7 @@ struct inode {
   short minor;
   short nlink;
   uint size;
+  struct rtcdate cdate;
   uint addrs[NDIRECT+1];
 };
 

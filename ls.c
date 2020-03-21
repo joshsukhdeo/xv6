@@ -63,7 +63,7 @@ ls(char *path)
         printf(1, "ls: cannot stat %s\n", buf);
         continue;
       }
-      printf(1, "%s %d %d %d\n", fmtname(buf), st.type, st.ino, st.size);
+      printf(1, "%s %d %d %d %d-%d-%d %d:%d:%d\n", fmtname(buf), st.type, st.ino, st.size,st.cdate.year,st.cdate.month,st.cdate.day,st.cdate.hour,st.cdate.minute,st.cdate.second);
     }
     break;
   }

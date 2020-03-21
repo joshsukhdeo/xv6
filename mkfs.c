@@ -10,6 +10,7 @@
 #include "fs.h"
 #include "stat.h"
 #include "param.h"
+#include <time.h>
 
 #ifndef static_assert
 #define static_assert(a, b) do { switch (0) case 0: case (a): ; } while (0)
@@ -230,6 +231,17 @@ ialloc(ushort type)
   din.type = xshort(type);
   din.nlink = xshort(1);
   din.size = xint(0);
+  time_t currentTime;
+  struct tm * d;
+  time(&currentTime);
+  d = gmtime(&currentTime);
+  // add 1900 to year and 1 to month accounting for time since epoch
+  din.cdate.year = d->tm_year + 1900;
+  din.cdate.month = d->tm_mon + 1;
+  din.cdate.day = d->tm_mday;
+  din.cdate.hour = d->tm_hour;
+  din.cdate.minute = d->tm_min;
+  din.cdate.second = d->tm_sec;
   winode(inum, &din);
   return inum;
 }
